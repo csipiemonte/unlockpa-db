@@ -1,0 +1,28 @@
+version: "3.5"
+services:
+  unlockdb:
+    container_name: unlockdb
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+     - unlockdb_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: unlockpa
+      POSTGRES_USER: unlockpa
+      POSTGRES_DB: unlockpa
+      PGDATA: /var/lib/postgresql/data
+      PUID: 0
+      PGID: 999
+    ports:
+      - 5432:5432
+    networks:
+      - unlockpa_net
+
+volumes:
+  unlockdb_data:
+    driver: local
+
+networks:
+  unlockpa_net:
+    external: true
